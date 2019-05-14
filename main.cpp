@@ -10,7 +10,7 @@ int main()
     it.Beg();
     while(it.Beg()!=it.End()){
         cout<<*it;
-        it++;
+        ++it;
     }
     return 0;
 }

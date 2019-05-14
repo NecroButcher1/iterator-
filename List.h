@@ -12,6 +12,7 @@ private:
 public:
     class Iterator{
     private:
+        List *tmp;
         PNode itr;
         T value;
     public:
@@ -19,8 +20,8 @@ public:
             itr=NULL;
         }
         PNode Beg(){
-            if(head){
-                itr=head;
+            if(tmp->head){
+                itr=tmp->head;
                 value=itr->Data;
             }
             else itr=NULL;
@@ -34,8 +35,8 @@ public:
             return itr;
         }
         PNode End(){
-            if(head){
-                itr=head;
+            if(tmp->head){
+                itr=tmp->head;
                 while(itr){
                     itr=itr->next;
                 }
@@ -43,6 +44,14 @@ public:
             }
             else itr=NULL;
             return itr;
+        }
+        bool operator==(Iterator &t){
+            if(itr==t)return true;
+            else return false;
+        }
+        bool operator!=(Iterator &t){
+            if(itr!=t)return true;
+            else return false;
         }
     };
     List(){
