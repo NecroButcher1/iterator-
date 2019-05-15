@@ -18,11 +18,13 @@ public:
         List *tmp;
         size_t idx;
     public:
-        Iterator():itr(NULL),idx(0){};
-        PNode operator=(PNode p){
-            itr=p;
+        Iterator():itr(NULL),tmp(this),idx(0){};
+        void operator=(Iterator *p){
+            itr=p->itr;
+            tmp=p->tmp;
+            idx=p->idx;
         }
-        PNode operator++(){
+        void operator++(){
             itr=itr->next;
             idx++;
         }
@@ -74,11 +76,11 @@ public:
         }
      return out;
     }
-    PNode begin(){
-        return head;
+    Iterator *begin(){
+        return Iterator(head,this,1);
     }
-    PNode end(){
-        return ptr;
+    Iterator *end(){
+        return Iterator(ptr,this,Size);
     }
 };
 
