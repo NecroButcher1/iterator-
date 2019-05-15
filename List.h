@@ -1,92 +1,80 @@
 #ifndef LIST_H_INCLUDED
 #define LIST_H_INCLUDED
+#include <iostream>
 template<typename T>
 class List{
 private:
     struct Node{
         T Data;
-        Node* next;
+        Node *next;
     };
     typedef Node* PNode;
-    PNode ptr,head;
+    size_t Size;
+    PNode head,ptr;
 public:
     class Iterator{
     private:
-        List *tmp;
         PNode itr;
-        T value;
+        List *tmp;
+        size_t idx;
     public:
-        Iterator(){
-            itr=NULL;
+        Iterator():itr(NULL),idx(0){};
+        PNode begin(){
+            itr=tmp->head;
+            idx=1;
         }
-        PNode Beg(){
-            if(tmp->head){
-                itr=tmp->head;
-                value=itr->Data;
-            }
-            else itr=NULL;
-            return itr;
-        }
-        T operator*(){
-            return value;
+        PNode end(){
+            itr=tmp->ptr;
+            idx=tmp->Size;
         }
         PNode operator++(){
             itr=itr->next;
-            return itr;
+            idx++;
         }
-        PNode End(){
-            if(tmp->head){
-                itr=tmp->head;
-                while(itr){
-                    itr=itr->next;
-                }
-                value=itr->Data;
-            }
-            else itr=NULL;
-            return itr;
-        }
-        bool operator==(Iterator &t){
-            if(itr==t)return true;
-            else return false;
+        bool operator==(Iterator& t){
+            return((itr->Data==t.itr->Data)&&(idx==t.idx))?true:false;
         }
         bool operator!=(Iterator &t){
-            if(itr!=t)return true;
-            else return false;
+            return((itr->Data!=t.itr->Data)||(idx!=t.idx))?true:false;
         }
     };
-    List(){
-        ptr=NULL;
-        head=NULL;
+    List():head(NULL),ptr(NULL),Size(0){};
+    bool isEmpty(){
+        return((head==NULL)||(ptr==NULL))? true:false;
     }
-    unsigned push(T _data){
-        unsigned err=0;
-        PNode p =new Node;
-        if(p==NULL)err=1;
+    unsigned Insert(T _Data){
+        unsigned out=0;
+        PNode p = new Node;
+        if(p==NULL)out=1;
         else{
-            p->Data=_data;
+            p->Data=_Data;
             p->next=NULL;
+            Size++;
             if(!head){
                 p->next=head;
                 head=p;
-                ptr=p;
+                ptr=head;
             }
             else{
-                ptr=head;
-                while(ptr->next)ptr=ptr->next;
-                p->next=ptr->next;
-                ptr->next=p;
+                p->next=ptr;
+                ptr=p;
             }
         }
-        return err;
+        return out;
     }
-    unsigned pop(T &_data){
-        unsigned err=0;
-        if(ptr==NULL)err=1;
-        else{
-            _data=ptr->Data;
-            ptr=ptr->next;
+    unsigned Extract(T &_Data){
+        unsigned out=0;
+        if(!ptr){
+            out=1;
+            head=NULL;
+            Size=0;
         }
-        return err;
+        else{
+            _Data=ptr->Data;
+            ptr=ptr->next;
+            Size--;
+        }
+     return out;
     }
 };
 
