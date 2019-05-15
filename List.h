@@ -19,17 +19,15 @@ public:
         size_t idx;
     public:
         Iterator():itr(NULL),idx(0){};
-        PNode begin(){
-            itr=tmp->head;
-            idx=1;
-        }
-        PNode end(){
-            itr=tmp->ptr;
-            idx=tmp->Size;
+        PNode operator=(PNode p){
+            itr=p;
         }
         PNode operator++(){
             itr=itr->next;
             idx++;
+        }
+        T operator*(){
+            return itr->Data;
         }
         bool operator==(Iterator& t){
             return((itr->Data==t.itr->Data)&&(idx==t.idx))?true:false;
@@ -75,6 +73,12 @@ public:
             Size--;
         }
      return out;
+    }
+    PNode begin(){
+        return head;
+    }
+    PNode end(){
+        return ptr;
     }
 };
 

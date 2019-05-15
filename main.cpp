@@ -14,5 +14,13 @@ int main()
         p.Extract(buff_elem);
         cout<<buff_elem;
     }
+    List<int>::Iterator it;
+    List<int>::Iterator ed;
+    it=p.begin();
+    ed=p.end();
+    while(it!=ed){
+        cout<<*it<<" ";
+        ++it;
+    }
     return 0;
 }
