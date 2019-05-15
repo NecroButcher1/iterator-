@@ -28,6 +28,11 @@ public:
             itr=itr->next;
             idx++;
         }
+        void operator--(){
+            PNode buff=itr;
+            itr=tmp->ptr;
+            while(itr->next!=buff)itr=itr->next;
+        }
         T operator*(){
             return itr->Data;
         }
