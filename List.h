@@ -19,7 +19,7 @@ public:
         size_t idx;
     public:
         Iterator():itr(NULL),tmp(this),idx(0){};
-        template<class V>Iterarot(PNode _itr,List<V> *_tmp,size_t _idx):itr(_itr),tmp(_tmp),idx(_idx){};
+        template<class V>Iterator(PNode _itr,List<V> *_tmp,size_t _idx):itr(_itr),tmp(_tmp),idx(_idx){};
         void operator=(Iterator *p){
             itr=p->itr;
             tmp=p->tmp;
